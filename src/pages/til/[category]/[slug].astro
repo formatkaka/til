@@ -1,0 +1,209 @@
+---
+import Layout from '../../../components/Layout.astro';
+
+export async function getStaticPaths() {
+  const allFiles = await Astro.glob('../../../../content/**/*.md');
+  
+  const paths: any[] = [];
+  
+  allFiles.forEach((file) => {
+    if (file.file.includes('README.md') || file.file.includes('src/')) return;
+    
+    const pathParts = file.file.split('/');
+    const fileName = pathParts[pathParts.length - 1];
+    const category = pathParts[pathParts.length - 2];
+    const slug = fileName.replace('.md', '');
+    
+    paths.push({
+      params: { 
+        category: category,
+        slug: slug
+      },
+      props: {
+        file,
+        title: file.frontmatter?.title || slug,
+        frontmatter: file.frontmatter || {}
+      }
+    });
+  });
+  
+  return paths;
+}
+
+const { file, title, frontmatter } = Astro.props;
+const { Content } = file;
+---
+
+<Layout title={title}>
+  <main>
+    <nav class="breadcrumb">
+      <a href="/">← Back to all TILs</a>
+    </nav>
+    
+    <article>
+      <header>
+        <h1>{title}</h1>
+        <div class="meta">
+          <span class="category">📁 {frontmatter.category}</span>
+          {frontmatter.date && (
+            <span class="date">📅 {new Date(frontmatter.date).toLocaleDateString()}</span>
+          )}
+        </div>
+        {frontmatter.tags && (
+          <div class="tags">
+            {frontmatter.tags.map((tag: string) => (
+              <span class="tag">#{tag}</span>
+            ))}
+          </div>
+        )}
+      </header>
+      
+      <div class="content">
+        <Content />
+      </div>
+    </article>
+  </main>
+
+  <style>
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .breadcrumb {
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb a {
+      color: #666;
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+
+    .breadcrumb a:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+
+    article {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header {
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      margin: 0 0 1rem 0;
+      color: #333;
+      font-size: 2rem;
+    }
+
+    .meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      color: #666;
+      flex-wrap: wrap;
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: #e1f5fe;
+      color: #0277bd;
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .content {
+      line-height: 1.7;
+    }
+
+    .content :global(h2) {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .content :global(h3) {
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #555;
+    }
+
+    .content :global(p) {
+      margin-bottom: 1rem;
+    }
+
+    .content :global(a) {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .content :global(a:hover) {
+      text-decoration: underline;
+    }
+
+    .content :global(code) {
+      background: #f5f5f5;
+      padding: 0.125rem 0.25rem;
+      border-radius: 3px;
+      font-size: 0.875rem;
+    }
+
+    .content :global(pre) {
+      background: #f8f8f8;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    .content :global(blockquote) {
+      border-left: 4px solid #e0e0e0;
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: #666;
+      font-style: italic;
+    }
+
+    .content :global(ul), .content :global(ol) {
+      margin: 1rem 0;
+      padding-left: 2rem;
+    }
+
+    .content :global(li) {
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 1rem;
+      }
+      
+      article {
+        padding: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</Layout>

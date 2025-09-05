@@ -1,3 +1,10 @@
+---
+title: "Object Merging"
+date: "2024-01-25"
+tags: ["javascript"]
+category: "js"
+---
+
 ## Merging two or more objects (shallow merge)
     
     Object.assign API

@@ -1,3 +1,10 @@
+---
+title: "Create User"
+date: "2024-01-22"
+tags: ["database"]
+category: "db"
+---
+
 ### Create user
 
 `CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'Password'`

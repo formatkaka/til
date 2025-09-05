@@ -1,3 +1,10 @@
+---
+title: "Dependency Injection"
+date: "2024-01-08"
+tags: ["architecture"]
+category: "core"
+---
+
 <b><u>Short definition</u></b> - Dependency injection means giving an object its instance variables.
 
 

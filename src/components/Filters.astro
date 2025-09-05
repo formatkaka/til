@@ -1,0 +1,48 @@
+---
+type Props = {
+  allTags: string[];
+  allCategories: string[];
+}
+
+const { allTags, allCategories } = Astro.props as Props;
+---
+
+<aside class="filters-sidebar">
+  <div class="filters">
+    <h3>Filters</h3>
+    
+    <div class="filter-group">
+      <label for="search-input">Search:</label>
+      <input type="text" id="search-input" placeholder="Search titles..." />
+    </div>
+    
+    <div class="filter-group">
+      <label for="tag-filter">Filter by tag:</label>
+      <select id="tag-filter">
+        <option value="">All tags</option>
+        {allTags.map(tag => (
+          <option value={tag}>{tag}</option>
+        ))}
+      </select>
+    </div>
+    
+    <div class="filter-group">
+      <label for="category-filter">Filter by category:</label>
+      <select id="category-filter">
+        <option value="">All categories</option>
+        {allCategories.map(category => (
+          <option value={category}>{category}</option>
+        ))}
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="sort-filter">Sort by:</label>
+      <select id="sort-filter">
+        <option value="name">Name (A-Z)</option>
+        <option value="date-desc">Date (Newest first)</option>
+        <option value="date-asc">Date (Oldest first)</option>
+      </select>
+    </div>
+  </div>
+</aside>

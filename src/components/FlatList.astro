@@ -1,0 +1,33 @@
+---
+type TIL = {
+  title: string;
+  category: string;
+  url: string;
+  frontmatter: {
+    date?: string;
+    tags?: string[];
+  };
+}
+
+type Props = {
+  tils: TIL[];
+}
+
+const { tils } = Astro.props as Props;
+---
+
+<div class="flat-list" id="flat-list" style="display: none;">
+  <div class="file-list">
+    {tils.map(til => (
+      <div class="file-item flat-item" data-tags={til.frontmatter.tags?.join(',') || ''} data-category={til.category} data-date={til.frontmatter.date || ''}>
+        <span class="folder-badge">{til.category}/</span>
+        <a href={til.url} class="file-link">
+          {til.title}
+        </a>
+        {til.frontmatter.date && (
+          <span class="file-date">({new Date(til.frontmatter.date).toLocaleDateString()})</span>
+        )}
+      </div>
+    ))}
+  </div>
+</div>

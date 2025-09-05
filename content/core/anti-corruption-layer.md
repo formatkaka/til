@@ -1,3 +1,10 @@
+---
+title: "Anti-Corruption Layer"
+date: "2024-01-10"
+tags: ["architecture"]
+category: "core"
+---
+
 <b><u>Short definition</u></b> - Implement a façade or adapter layer between different subsystems that don't share the same semantics. This layer translates requests that one subsystem makes to the other subsystem. Use this pattern to ensure that an application's design is not limited by dependencies on outside subsystems. This pattern was first described by Eric Evans in Domain-Driven Design.
 
 Most applications rely on other systems for some data or functionality. For example, when a legacy application is migrated to a modern system, it may still need existing legacy resources. New features must be able to call the legacy system. This is especially true of gradual migrations, where different features of a larger application are moved to a modern system over time.

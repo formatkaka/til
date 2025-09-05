@@ -1,3 +1,10 @@
+---
+title: "OSI Model"
+date: "2024-01-05"
+tags: ["networking"]
+category: "networking"
+---
+
 ## OSI Model
 
 Common set of protocols used to transfer data between any 2 machines.

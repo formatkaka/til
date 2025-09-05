@@ -1,0 +1,18 @@
+02-09-2025
+
+## this forwarding and arrow function
+## React api calling
+    - Interceptors
+    - Why use library instead of fetch calls
+## MDX in astro
+
+
+03-09-2025
+
+## React journey from SPA - Server functions
+
+04-09-2025
+
+## pnpm vs yarn vs npm
+  -- 3 basic differences in how they work
+

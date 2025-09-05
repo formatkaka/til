@@ -1,0 +1,50 @@
+---
+import Layout from '../components/Layout.astro';
+import Filters from '../components/Filters.astro';
+import CategoryList from '../components/CategoryList.astro';
+import FlatList from '../components/FlatList.astro';
+import '../styles/main.css';
+
+// Get all markdown files from the content directories
+const allFiles = await Astro.glob('../../content/**/*.md');
+
+// Filter out README and process TIL files
+const tils = allFiles
+  .filter(file => !file.file.includes('README.md') && !file.file.includes('src/'))
+  .map(file => {
+    const pathParts = file.file.split('/');
+    const fileName = pathParts[pathParts.length - 1];
+    const category = pathParts[pathParts.length - 2];
+    
+    return {
+      title: fileName.replace('.md', ''),
+      category: category,
+      rawContent: file.rawContent(),
+      frontmatter: file.frontmatter,
+      url: `/til/${category}/${fileName.replace('.md', '')}`
+    };
+  })
+  .sort((a, b) => {
+    const dateA = a.frontmatter.date ? new Date(a.frontmatter.date) : new Date(0);
+    const dateB = b.frontmatter.date ? new Date(b.frontmatter.date) : new Date(0);
+    return dateB.getTime() - dateA.getTime();
+  });
+
+// Get all unique tags and categories
+const allTags = [...new Set(tils.flatMap(til => til.frontmatter.tags || []))];
+const allCategories = [...new Set(tils.map(til => til.category))];
+---
+
+<Layout title="Today I Learned">
+  <main>
+    <h1>Today I Learned</h1>
+    
+    <div class="content-layout">
+      <CategoryList tils={tils} categories={allCategories} />
+      <FlatList tils={tils} />
+      <Filters allTags={allTags} allCategories={allCategories} />
+    </div>
+  </main>
+
+  <script src="../scripts/filters.ts"></script>
+</Layout>

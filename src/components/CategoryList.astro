@@ -1,0 +1,42 @@
+---
+type TIL = {
+  title: string;
+  category: string;
+  url: string;
+  frontmatter: {
+    date?: string;
+    tags?: string[];
+  };
+}
+
+type Props = {
+  tils: TIL[];
+  categories: string[];
+}
+
+const { tils, categories } = Astro.props as Props;
+---
+
+<div class="category-sections" id="category-sections">
+  {categories.sort().map(category => (
+    <section class="category-section" data-category={category}>
+      <h2 class="category-title">{category}</h2>
+      <div class="file-list">
+        {tils
+          .filter(til => til.category === category)
+          .sort((a, b) => a.title.localeCompare(b.title))
+          .map(til => (
+            <div class="file-item" data-tags={til.frontmatter.tags?.join(',') || ''} data-category={til.category} data-date={til.frontmatter.date || ''}>
+              <a href={til.url} class="file-link">
+                - {til.title}
+              </a>
+              {til.frontmatter.date && (
+                <span class="file-date">({new Date(til.frontmatter.date).toLocaleDateString()})</span>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  ))}
+</div>

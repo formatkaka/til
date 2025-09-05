@@ -1,3 +1,10 @@
+---
+title: "OAuth"
+date: "2024-01-12"
+tags: ["authentication", "web"]
+category: "web"
+---
+
 ### OAuth 
 
 1. https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them
