@@ -7,9 +7,9 @@ category: "react"
 
 ## Using useCallback and React.memo to prevent re-renders
 
-```
-export default function useBoolean(initialValue?: boolean): UseBooleanReturn {
-  const [state, setState] = useState<boolean>(initialValue || false);
+```javascript
+export default function useBoolean(initialValue) {
+  const [state, setState] = useState(initialValue || false);
 
   return {
     value: state,
@@ -18,26 +18,28 @@ export default function useBoolean(initialValue?: boolean): UseBooleanReturn {
   }
 }
 
-CompA:
+// CompA:
 
-  const {value, setTrue, setFalse} = useBoolean();
+const {value, setTrue, setFalse} = useBoolean();
 
-  return
+return (
+  <>
     <CompB value={value} />
     <CompC setFalse={setFalse} />
     <CompD setTrue={setTrue} />
-
+  </>
+)
 ```
 
 In the above example , if `CompA` re-renders, the hook `useBoolean` runs again. Now when this runs, in it's return `setTrue` and `setFalse` are created with new references. This will cause everything to re-render. To optimise this, We can 
 
 1. Add useCallback to react hook returns
-2. Wrap `CompC` and `CompD` with `React.memo`  
+2. Wrap `CompC` and `CompD` with `React.memo`
 
 
-```
-export default function useBoolean(initialValue?: boolean): UseBooleanReturn {
-  const [state, setState] = useState<boolean>(initialValue || false);
+```javascript
+export default function useBoolean(initialValue) {
+  const [state, setState] = useState(initialValue || false);
 
   const setTrue = useCallback(() => {
     setState(true);
@@ -54,24 +56,25 @@ export default function useBoolean(initialValue?: boolean): UseBooleanReturn {
   }
 }
 
-CompA:
+// CompA:
 
-  /**
-    If value is used like this 
-    const usebool = useBoolean();
+/**
+  If value is used like this
+  const usebool = useBoolean();
 
-    if usebool is used directly , then the return from hook must be memoized
-  */
+  if usebool is used directly , then the return from hook must be memoized
+*/
 
+const {value, setTrue, setFalse} = useBoolean();
 
-  const {value, setTrue, setFalse} = useBoolean();
-
-  return
+return (
+  <>
     <CompB value={value} />
     <CompC setFalse={setFalse} />
     <CompD setTrue={setTrue} />
+  </>
+)
 
-CompC: React.memo(CompCImplementation)
-CompD: React.memo(CompDImplementation)
-
+// CompC: React.memo(CompCImplementation)
+// CompD: React.memo(CompDImplementation)
 ```

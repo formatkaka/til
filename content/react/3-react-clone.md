@@ -10,7 +10,7 @@ category: "react"
 Usage: Overriding props of a component
 
 
-```
+```javascript
 import { cloneElement } from 'react';
 
 // ...

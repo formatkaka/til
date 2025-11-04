@@ -28,7 +28,7 @@ category: "js"
 
 ### Is let, const completely non-hoisting ?
 
-```
+```javascript
 const x = 1;
 {
   console.log(x); // ReferenceError
@@ -47,16 +47,16 @@ Still, it may be more useful to characterize lexical declarations as non-hoistin
 `let` and `const` variables are not initialized and accessing them before the declaration will result in a `ReferenceError` exception because they are in a "temporal dead zone" from the start of the block until the declaration is processed.
 
 
-```
---- TDZ starts for baz and bar ---
-console.log(foo); // undefined 
+```javascript
+// --- TDZ starts for baz and bar ---
+console.log(foo); // undefined
 var foo = 'foo';
 
 console.log(baz); // ReferenceError
 let baz = 'baz';
---- TDZ ends for baz ---
+// --- TDZ ends for baz ---
 
 console.log(bar); // ReferenceError
 const bar = 'bar';
---- TDZ ends for bar ---
+// --- TDZ ends for bar ---
 ```

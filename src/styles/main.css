@@ -8,7 +8,7 @@ main {
 h1 {
   text-align: center;
   margin-bottom: 2rem;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .content-layout {
@@ -30,11 +30,11 @@ h1 {
 
 .category-title {
   margin: 0 0 1rem 0;
-  color: #333;
+  color: var(--text-primary);
   font-size: 1.5rem;
   font-weight: 700;
   text-transform: capitalize;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 2px solid var(--border-color);
   padding-bottom: 0.5rem;
 }
 
@@ -53,7 +53,7 @@ h1 {
 }
 
 .file-link {
-  color: #2563eb;
+  color: var(--link-color);
   text-decoration: underline;
   font-family: 'Courier New', monospace;
   font-weight: 600;
@@ -63,12 +63,12 @@ h1 {
 }
 
 .file-link:hover {
-  color: #1d4ed8;
+  color: var(--link-hover);
   text-decoration: underline;
 }
 
 .file-date {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.75rem;
   margin-left: auto;
 }
@@ -84,7 +84,7 @@ h1 {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .flat-item:last-child {
@@ -92,8 +92,8 @@ h1 {
 }
 
 .folder-badge {
-  background: #e1f5fe;
-  color: #0277bd;
+  background: var(--badge-bg);
+  color: var(--badge-text);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.75rem;
@@ -119,15 +119,15 @@ h1 {
 }
 
 .filters {
-  background: #f8f9fa;
-  border: 1px solid #e0e0e0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1.5rem;
 }
 
 .filters h3 {
   margin: 0 0 1rem 0;
-  color: #333;
+  color: var(--text-primary);
   font-size: 1rem;
 }
 
@@ -142,7 +142,7 @@ h1 {
 .filter-group label {
   display: block;
   font-weight: 600;
-  color: #555;
+  color: var(--text-secondary);
   margin-bottom: 0.25rem;
   font-size: 0.875rem;
 }
@@ -151,21 +151,22 @@ h1 {
 .filter-group input {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  background: white;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   font-size: 0.875rem;
 }
 
 .filter-group select:focus,
 .filter-group input:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: var(--link-color);
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
 }
 
 .filter-group input::placeholder {
-  color: #999;
+  color: var(--text-muted);
 }
 
 /* Responsive Design */
